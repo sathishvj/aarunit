@@ -1,0 +1,22 @@
+{{define "AddPost"}}
+<!doctype html>
+<html>
+	<head>
+		<title>Aarunit - Add Post</title>
+	</head>
+	<body>
+		<span>Add a New Post</span>
+		<form method="POST" action="/post/addF">
+			Title: * <input type="text" name="title" />
+			Text: * <input type="text" name="value" />
+			Group: * <select name="group">
+				{{range .}}
+				<option value="{{.Name}}">{{.Name}}</option>
+				{{end}}
+			</select>
+			<hidden name="kind" value="text"/>
+			<input type="Submit" value="Submit"/>
+		</form>
+	</body>
+</html>
+{{end}}

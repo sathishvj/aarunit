@@ -1,0 +1,17 @@
+{{define "AddUser"}}
+<!doctype html>
+<html>
+	<head>
+		<title>Aarunit - Add User</title>
+	</head>
+	<body>
+		<span>Create a new user</span>
+		<form method="POST" action="/user/addF">
+			Username: * <input type="text" name="username" />
+			Password: * <input type="text" name="password" />
+			Email: <input type="text" name="email" />
+			<input type="Submit" value="Submit"/>
+		</form>
+	</body>
+</html>
+{{end}}
