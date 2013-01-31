@@ -1,0 +1,36 @@
+body {
+    font-weight: 16px;
+}
+
+a:hover {
+    background-color: purple;
+    color: white;
+}
+
+#header {
+    clear: both;
+}
+
+#logo {
+    float: left;
+}
+
+#account {
+    float: right;
+}
+
+#account a {
+    font-size: 1.1rem;
+    color: grey;
+    text-decoration: none;
+    padding: 3px;
+}
+
+#account a:hover {
+    background-color: purple;
+    color: white;
+}
+
+#posts {
+    clear: both;
+}

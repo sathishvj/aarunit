@@ -2,7 +2,7 @@ package aarunit
 
 import (
 	"appengine"
-	"encoding/json"
+	// "encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -24,9 +24,21 @@ func init() {
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 
-	_, posts, _ := getPosts(r)
-	b, _ := json.Marshal(posts)
-	fmt.Fprintf(w, "%s", string(b))
+	c := appengine.NewContext(r)
+
+	t, err := template.New("").ParseFiles("tmpl/index.tmpl")
+	if err != nil {
+		c.Errorf("main.go: rootHandler(): Error loading/parsing template: %s", err.Error())
+	}
+
+	err = t.ExecuteTemplate(w, "Main", nil)
+	if err != nil {
+		c.Errorf("main.go: rootFHandler(): Error executing template: %s", err.Error())
+	}
+
+	// _, posts, _ := getPosts(r)
+	// b, _ := json.Marshal(posts)
+	// fmt.Fprintf(w, "%s", string(b))
 }
 
 func addPostHandler(w http.ResponseWriter, r *http.Request) {
