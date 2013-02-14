@@ -1,11 +1,12 @@
-package aarunit
+package aarinit
 
 import (
 	"appengine"
-	// "encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 func init() {
@@ -15,7 +16,8 @@ func init() {
 
 	http.HandleFunc("/user/add", addUserHandler)
 	http.HandleFunc("/user/addF", addUserFHandler)
-	http.HandleFunc("/user/validate", validateUserHandler)
+	http.HandleFunc("/user/login", loginUserHandler)
+	http.HandleFunc("/user/loginF", loginFUserHandler)
 
 	http.HandleFunc("/group/add", addGroupHandler)
 	http.HandleFunc("/group/addF", addGroupFHandler)
@@ -26,19 +28,69 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	c := appengine.NewContext(r)
 
-	t, err := template.New("").ParseFiles("tmpl/index.tmpl")
+	t, err := template.New("Main").ParseFiles("tmpl/index.tmpl")
 	if err != nil {
 		c.Errorf("main.go: rootHandler(): Error loading/parsing template: %s", err.Error())
+		return
 	}
 
-	err = t.ExecuteTemplate(w, "Main", nil)
+	_, posts, _ := getPosts(r)
+
+	type RetPost struct {
+		PostNum     int
+		UpVoteCount int
+		Url         string
+		Title       string
+		Username    string
+		TimeDiff    string
+		Group       string
+	}
+
+	var retPosts []RetPost
+	for i := 0; i < len(posts); i++ {
+		dur := time.Now().Sub(posts[i].Timestamp)
+		var timeDiff string
+		if dur.Seconds() < 60 {
+			timeDiff = strconv.Itoa(int(dur.Seconds())) + " secs "
+		} else if dur.Seconds() >= 60 && dur.Minutes() < 60 {
+			timeDiff = strconv.Itoa(int(dur.Minutes())) + " mins "
+		} else if dur.Minutes() >= 60 && dur.Hours() < 24 {
+			timeDiff = strconv.Itoa(int(dur.Hours())) + " hrs "
+		} else if dur.Hours() > 24 {
+			timeDiff = strconv.Itoa(int(dur.Hours()/24)) + " days "
+		}
+
+		var url string
+		if posts[i].Kind == "url" {
+			url = posts[i].Value
+		} else {
+			//TODO: link to details page
+			url = "http://www.google.com"
+		}
+
+		newRetPost := RetPost{
+			PostNum:     i + 1,
+			UpVoteCount: 1234,
+			Url:         url,
+			Title:       posts[i].Title,
+			Username:    "tbd",
+			TimeDiff:    timeDiff,
+			Group:       posts[i].Group,
+		}
+		retPosts = append(retPosts, newRetPost)
+	}
+
+	err = t.ExecuteTemplate(w, "Main", struct {
+		Username string
+		Posts    []RetPost
+	}{
+		"tbd",
+		retPosts,
+	})
 	if err != nil {
 		c.Errorf("main.go: rootFHandler(): Error executing template: %s", err.Error())
 	}
 
-	// _, posts, _ := getPosts(r)
-	// b, _ := json.Marshal(posts)
-	// fmt.Fprintf(w, "%s", string(b))
 }
 
 func addPostHandler(w http.ResponseWriter, r *http.Request) {
@@ -93,7 +145,21 @@ func addUserFHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
-func validateUserHandler(w http.ResponseWriter, r *http.Request) {
+func loginUserHandler(w http.ResponseWriter, r *http.Request) {
+	c := appengine.NewContext(r)
+
+	t, err := template.New("Login").ParseFiles("tmpl/login.tmpl")
+	if err != nil {
+		c.Errorf("main.go: loginUserHandler(): Error loading/parsing template: %s", err.Error())
+	}
+
+	err = t.ExecuteTemplate(w, "Login", nil)
+	if err != nil {
+		c.Errorf("main.go: loginUserHandler(): Error executing template: %s", err.Error())
+	}
+}
+
+func loginFUserHandler(w http.ResponseWriter, r *http.Request) {
 
 	c := appengine.NewContext(r)
 
@@ -130,9 +196,10 @@ func addGroupHandler(w http.ResponseWriter, r *http.Request) {
 
 func addGroupFHandler(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("name")
+	tags := r.FormValue("tags")
 
 	//do data checking and cleansing here
-	addGroup(r, name)
+	addGroup(r, name, tags)
 
 	http.Redirect(w, r, "/", http.StatusFound)
 }

@@ -1,8 +1,7 @@
-{{define "AddPost"}}
 <!doctype html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+		<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 		<title>Aarinit - Add Post</title>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
         <script>
@@ -34,7 +33,7 @@
 	</head>
 	<body>
         <div id="header">
-			<a href="/"><img id="logo" src="/images/logo.png" /></a>
+			<img id="logo" src="images/logo.png" />
 			<div id="account">
                 <a id="feedback" href="https://docs.google.com/forms/d/1ArL_2qnA8lJizWF-n0Re5ZEIq6GtiPxyGOsrOlxozbM/viewform" target="_blank">feedback</a>
                 <a href="">uname_holder</a>
@@ -52,12 +51,12 @@
             <div id="newPost" class="tabPage">
                 <div id="newURLPage">
                     <form action="/post/addF">
-                        <input type="hidden" name="kind" value="url"/>
+                        <hidden name="kind" value="url"/>
                         <label for="title">Title</label>
                         <input type="text" name="title" autofocus required placeholder="Give an interesting title to your post." maxlength="300" size="60"/>
                         
-                        <label for="value">URL</label>
-                        <input type="url" name="value" required placeholder="Paste the URL here." size="60"/>
+                        <label for="data">URL</label>
+                        <input type="text" name="data" required placeholder="Paste the URL here." size="60"/>
                         
                         <label for="group">Group</label>
                         <select name="group">
@@ -70,12 +69,12 @@
                 
                 <div id="newTextPage" class="tabPage">
                     <form action="/post/addF">
-                        <input type="hidden" name="kind" value="text"/>
+                        <hidden name="kind" value="text"/>
                         <label for="title">Title</label>
                         <input type="text" name="title" autofocus required placeholder="Give an interesting title to your post." maxlength="300" size="60"/>
                         
-                        <label for="value">Text</label>
-                        <textarea name="value" required placeholder="Enter text here." cols="46" rows="5"></textarea>
+                        <label for="data">Text</label>
+                        <textarea name="data" required placeholder="Enter text here." cols="46" rows="5"></textarea>
                         
                         <label for="group">Group</label>
                         <select name="group">
@@ -91,4 +90,3 @@
         </div>
     </body>
 </html>
-{{end}}

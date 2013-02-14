@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/styles.css"/>
+		<title>Aarinit - Login</title>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+
+    </head>
+	<body>
+        <div id="header">
+			<img id="logo" src="images/logo.png" />
+			<div id="account">
+                <a id="feedback" href="https://docs.google.com/forms/d/1ArL_2qnA8lJizWF-n0Re5ZEIq6GtiPxyGOsrOlxozbM/viewform" target="_blank">feedback</a>
+			</div>
+		</div>
+        
+        <div id="container">
+            <span class="h1">Login</span>
+            <span class="h3">... and be an active part of our community.</span>
+            
+            <div>
+                <form action="/user/validateF">
+                    <input type="text" name="username" autofocus required placeholder="Username" />
+                    <input type="password" name="password" required placeholder="Password"/>
+                    <input type="submit" />
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

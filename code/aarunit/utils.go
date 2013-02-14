@@ -1,4 +1,4 @@
-package aarunit
+package aarinit
 
 import (
 	cryptrand "crypto/rand"

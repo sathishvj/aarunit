@@ -3,16 +3,63 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/styles.css"/>
-		<title>Aarunit - Social news and info sharing</title>
+		<title>Aarinit - Social news and info sharing</title>
 	</head>
 	<body>
-		<div>
-			<img src="images/logo.png" />
-			<div>
+        <div id="header">
+			<a href=""><img id="logo" src="/images/logo.png" /></a>
+			<div id="account">
+                <a id="feedback" href="https://docs.google.com/forms/d/1ArL_2qnA8lJizWF-n0Re5ZEIq6GtiPxyGOsrOlxozbM/viewform" target="_blank">feedback</a>
 				<a href="/user/login">login</a>
-				<a href="/user/register">register</a>
+				<a href="/user/add">register</a>
+                <a href="">uname_holder</a>
 			</div>
 		</div>
+        
+        <div id="container">
+                        
+            <div id="sidebar">
+                <a class="button-link" href="/post/add">Add a new Post</a>
+                <a class="button-link" href="/group/add">Create a Group</a>
+                
+                <img id="sidebar-ad" class="" src="images/billboard.png" />
+            </div>
+            
+            <div id="posts">
+                <div id="adSection">
+                    <div class="post post-ad ">
+                        <span class="post-num">*</span>
+                        <div class="post-vote">
+                            <a class="post-up">+</a>
+                            <span class="post-votes-cnt">135</span>
+                            <a class="post-down">-</a>
+                        </div>
+                        <div class="post-data ">
+                            <span class="post-title"><a href="http://www.therecord.com/news/business/article/878564--blackberry-s-hometown-cheers-as-new-products-are-launched" target="_blank">BlackBerry’s hometown cheers as new products are launched</a></span>
+                            <span class="post-metadata">sponsored ad</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="contentSection">
+                    {{range .Posts}}
+                    <div class="post">
+                        <span class="post-num">{{.PostNum}}</span>
+                        <div class="post-vote">
+                            <a class="post-up">+</a>
+                            <span class="post-votes-cnt">{{.UpVoteCount}}</span>
+                            <a class="post-down">-</a>
+                        </div>
+                        <div class="post-data">
+                            <a class="post-title" href="{{.Url}}">{{.Title}}</a>
+                            <span class="post-metadata">submitted {{.TimeDiff}} ago by {{.Username}} to {{.Group}}</span>
+                        </div>
+                    </div>
+                    {{end}}
+                </div>
+            </div>
+
+        </div>
 	</body>
 </html>
 {{end}}

@@ -1,4 +1,4 @@
-package aarunit
+package aarinit
 
 import (
 	"appengine"
@@ -34,6 +34,7 @@ type User struct {
 
 type Group struct {
 	Name      string
+	Tags      string
 	Timestamp time.Time
 }
 
@@ -62,7 +63,7 @@ func addPost(r *http.Request, kind, title, value, group string) (err error) {
 	return err
 }
 
-func getPosts(r *http.Request) (pKeys []*datastore.Key, posts *[]Post, err error) {
+func getPosts(r *http.Request) (pKeys []*datastore.Key, posts []Post, err error) {
 
 	cnt := 10
 
@@ -71,8 +72,9 @@ func getPosts(r *http.Request) (pKeys []*datastore.Key, posts *[]Post, err error
 		Limit(cnt).
 		Order("-Timestamp")
 
-	posts = new([]Post)
-	if pKeys, err = q.GetAll(c, posts); err != nil {
+	//posts = new([]Post)
+	posts = make([]Post, 0)
+	if pKeys, err = q.GetAll(c, &posts); err != nil {
 		c.Errorf("model.go: getPosts(): Error getting posts: %s", err.Error())
 		return nil, nil, err
 	}
@@ -125,12 +127,13 @@ func validateUser(r *http.Request, username, password string) (bool, error) {
 	return false, nil
 }
 
-func addGroup(r *http.Request, name string) (err error) {
+func addGroup(r *http.Request, name, tags string) (err error) {
 	c := appengine.NewContext(r)
 
 	k := datastore.NewIncompleteKey(c, "Group", nil)
 	g := Group{
 		name,
+		tags,
 		time.Now(),
 	}
 
@@ -184,10 +187,11 @@ func addComment(r *http.Request, postId, value, username string) (err error) {
 	return err
 }
 
-func getComments(r *http.Request) (cKeys []*datastore.Key, comments *[]Comment, err error) {
+func getComments(r *http.Request, postId string) (cKeys []*datastore.Key, comments *[]Comment, err error) {
 
 	c := appengine.NewContext(r)
 	q := datastore.NewQuery("Comment").
+		Filter("PostId=", postId).
 		Order("-Timestamp")
 
 	comments = new([]Comment)

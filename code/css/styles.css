@@ -1,4 +1,201 @@
 body {
-	background-color: red;
-	font-weight: 34px;
+    font-weight: 16px;
+    color: grey;
+}
+
+#header {
+    clear: both;
+}
+
+#logo {
+    float: left;
+}
+
+#account {
+    float: right;
+}
+
+#account a {
+    font-size: 1.1rem;
+    color: grey;
+    text-decoration: none;
+    padding: 3px;
+}
+
+#account a:hover {
+    background-color: purple;
+    color: white;
+}
+
+#feedback {
+    font-size: 1.3rem;
+}
+
+#container {
+    width: 100%;
+    clear: both;
+    padding-top: 15px;
+}
+
+#posts {
+    padding: 5px;
+    float: left;
+}
+
+#sidebar {
+    width: 200px;
+    float: right;
+}
+
+#sidebar-ad {
+    border: thin dotted grey;
+}
+
+.post {
+    padding: 5px;
+    display: block;
+    clear: both;
+}
+
+.post-ad {
+    background-color: #EFFBFB;
+    border: thin dotted grey;
+    background-image:url('../images/adchoices.png');
+    background-repeat:no-repeat;
+    background-position:right;
+    
+}
+
+.post-num {
+    font-size: 1.2rem;
+    color: grey;
+    float: left;
+    padding: 2px;
+    display: inline-block;
+}
+
+.post-vote {
+    padding: 2px;
+    margin: 2px;
+    color: #B4CFEC; /*slate gray2*/
+    float: left;
+    display: inline-block;
+    text-align: center;
+    border-left: thin dotted grey;
+    border-right: thin dotted grey;
+}
+
+.post-up {
+    color: green;
+    font-size: 1.3rem;
+    display: block;
+    cursor: pointer;
+}
+
+.post-down {
+    color: orange;
+    font-size: 1.3rem;
+    display: block;
+    cursor: pointer;
+}
+
+.post-votes-cnt {
+    font-size: 0.9rem;
+    display: block;
+}
+
+.button-link {
+    display: block;
+    padding: 10px 15px;
+    background: purple;
+    color: #FFF;
+    margin: 5px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.post-title {
+    font-size: 1.3rem;
+    display: block;
+}
+
+.post-metadata {
+    color: gray;
+    font-size: 0.9rem;
+}
+
+.h1 {
+    font-size: 1.4rem;
+    display: block;
+}
+
+.h3 {
+    font-size: 1.2rem;
+    display: block;
+    font-style: italic;;
+}
+
+form {
+    border: thin dotted grey;
+    margin: 15px;
+    padding: 10px;
+}
+
+form label {
+    display: block;
+}
+
+form input[type="text"] {
+    margin-bottom: 8px;
+    margin-top: 3px;
+    display: block;
+}
+
+form input[type="password"] {
+    margin-bottom: 8px;
+    margin-top: 3px;
+    display: block;
+}
+
+form input[type="submit"] {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.tabList {
+    display: block;
+    
+}
+
+.tabList span {
+    display: inline-block;
+    border-bottom: thin dashed purple;
+    padding: 3px;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.tabList span:hover {
+    background: purple;
+    color: white;
+}
+
+.tabSelected {
+    background: purple;
+    color: white;
+}
+
+.tabPage {
+    border: thin dashed purple;
+}
+
+.ad {
+    display: none;
+}
+
+#passwordMatchInfo {
+    color: red;
+    display: block;
+    padding-bottom: 15px;
 }

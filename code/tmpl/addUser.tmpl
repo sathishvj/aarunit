@@ -2,16 +2,53 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Aarunit - Add User</title>
-	</head>
+		<link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+		<title>Aarinit - Register</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            checkPasswordMatch();
+        });
+
+        function checkPasswordMatch() {
+            // alert($("#password").val());
+            // alert($("#confirmPassword").val());
+            if ( $("#password").val() != $("#confirmPassword").val() ) {
+                $("#passwordMatchInfo").show();
+            } else {
+                $("#passwordMatchInfo").hide();
+            }
+        }
+        </script>
+    </head>
 	<body>
-		<span>Create a new user</span>
-		<form method="POST" action="/user/addF">
-			Username: * <input type="text" name="username" />
-			Password: * <input type="text" name="password" />
-			Email: <input type="text" name="email" />
-			<input type="Submit" value="Submit"/>
-		</form>
-	</body>
+        <div id="header">
+			<a href="/"><img id="logo" src="/images/logo.png" /></a>
+			<div id="account">
+                <a id="feedback" href="https://docs.google.com/forms/d/1ArL_2qnA8lJizWF-n0Re5ZEIq6GtiPxyGOsrOlxozbM/viewform" target="_blank">feedback</a>
+			</div>
+		</div>
+        
+        <div id="container">
+            <span class="h1">Join us</span>
+            <span class="h3">... and contribute to the community.</span>
+            
+            <div>
+                <form action="/user/validateF">
+                    <label for="username">Enter a unique username (alphabets, numbers, underscore).</label>
+                    <label>We don't want/need it to be your real name: *</label>
+                    <input type="text" name="username" autofocus required placeholder="Username" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"/>
+                    <label for="password">Enter a password: *</label>
+                    <input id="password" type="password" name="password" required placeholder="Password" onblur="checkPasswordMatch()"/>
+                    <label for="password">Confirm your password: *</label>
+                    <input id="confirmPassword" type="password" name="confirmpassword" required placeholder="Confirm Password" onblur="checkPasswordMatch()"/>
+                    <span id="passwordMatchInfo">Passwords do not match!</span>
+                    <label for="password">(Optional) Your email if you wish.  We are very ok if you prefer anonymity:</label>
+                    <input type="email" name="email" placeholder="email id"/>
+                    <input type="submit" />
+                </form>
+            </div>
+        </div>
+    </body>
 </html>
 {{end}}

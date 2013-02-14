@@ -1,4 +1,4 @@
-application: aarunit
+application: aarinitapp
 version: 0-1
 runtime: go
 api_version: go1
